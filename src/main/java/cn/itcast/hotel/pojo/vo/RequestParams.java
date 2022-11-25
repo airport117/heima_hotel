@@ -11,6 +11,7 @@ public class RequestParams {
      * 搜索关键字
      */
     private String key;
+
     private Integer page;
     private Integer size;
     /**

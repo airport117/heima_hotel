@@ -4,10 +4,7 @@ import cn.itcast.hotel.pojo.vo.PageResult;
 import cn.itcast.hotel.pojo.vo.RequestParams;
 import cn.itcast.hotel.service.IHotelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +18,9 @@ public class HotelController {
 
     /**
      * 搜索酒店数据
+     *
+     * @param params .key搜索的值
+     * @return
      */
     @PostMapping("/list")
     public PageResult search(@RequestBody RequestParams params) {
@@ -28,12 +28,24 @@ public class HotelController {
     }
 
     /**
-     * 聚合搜索
-     * @param params
+     * 聚合搜索，主页标签动态变化
+     *
+     * @param params .key搜索的值
      * @return
      */
     @PostMapping("filters")
-    public Map<String, List<String>> getFilters(@RequestBody RequestParams params){
+    public Map<String, List<String>> getFilters(@RequestBody RequestParams params) {
         return hotelService.getFilters(params);
+    }
+
+    /**
+     * 自动补全功能
+     *
+     * @param prefix 用户输入的搜索值
+     * @return
+     */
+    @GetMapping("suggestion")
+    public List<String> getSuggestions(@RequestParam("key") String prefix) {
+        return hotelService.getSuggestions(prefix);
     }
 }

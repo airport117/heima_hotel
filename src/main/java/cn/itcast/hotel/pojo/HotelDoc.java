@@ -1,5 +1,7 @@
 package cn.itcast.hotel.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class HotelDoc {
+
     private Long id;
     private String name;
     private String address;

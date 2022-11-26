@@ -14,7 +14,6 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.lucene.search.function.CombineFunction;
-import org.elasticsearch.common.lucene.search.function.FunctionScoreQuery;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -88,7 +87,7 @@ public class HotelService extends ServiceImpl<HotelMapper, Hotel> implements IHo
 
     /**
      * 聚合搜索，主页标签动态变化：实现
-     * ```
+     * <pre>{@code
      * GET /hotel/_search
      * {
      *   "query": {
@@ -102,24 +101,25 @@ public class HotelService extends ServiceImpl<HotelMapper, Hotel> implements IHo
      *     "brandAgg": {
      *       "terms": {
      *         "field": "brand",
-     *         "size": 100
+     *         "size": 10
      *       }
      *     },
      *     "cityAgg": {
      *       "terms": {
      *         "field": "city",
-     *         "size": 100
+     *         "size": 10
      *       }
      *     },
      *     "starAgg": {
      *       "terms": {
      *         "field": "starName",
-     *         "size": 100
+     *         "size": 10
      *       }
      *     }
      *   }
      * }
-     * ```
+     * }</pre>
+     *
      * @param params
      * @return
      */
@@ -157,8 +157,23 @@ public class HotelService extends ServiceImpl<HotelMapper, Hotel> implements IHo
 
     /**
      * 自动补全
+     * <pre>{@code
+     * GET /hotel/_search
+     * {
+     *   "suggest": {
+     *     "hotel_Suggest": {
+     *       "text": "北",
+     *       "completion": {
+     *         "field": "suggestion",
+     *         "skip_duplicates": true,
+     *         "size": 10
+     *       }
+     *     }
+     *   }
+     * }
+     * }</pre>
      *
-     * @param prefix
+     * @param prefix 用户输入的搜索值
      * @return
      */
     @Override

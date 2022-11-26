@@ -34,6 +34,9 @@ public class HotelDoc {
      */
     private Boolean isAD;
 
+    /**
+     * 自动补全
+     */
     private List<String> suggestion;
 
     public HotelDoc(Hotel hotel) {
